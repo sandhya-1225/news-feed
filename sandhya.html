@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="sad.css">
+    <style>
+        html{
+    background-color: white;
+}
+
+
+
+#canvas{
+    box-sizing: border-box;
+    width: 600px;
+    background-color:lavenderblush;
+    margin: 50px auto;
+    padding: 40px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+#heading{
+    text-align: center;
+}
+
+h3{
+    font-size: 25px;
+    padding: 15px;
+
+}
+
+span{
+    color: #614AD3;
+}
+
+#date{
+    color:black;
+}
+
+ul {
+    list-style: none;
+    font-size: 16px;
+    text-transform: capitalize;
+}
+
+ul a{
+    text-decoration: none;
+    color: #614AD3;
+    font-weight: 800;
+    font-size: 1.2em;
+}
+
+ul a:hover{
+    color:cornflowerblue;
+}
+    </style>
+    <title>News Feed</title>
+</head>
+<body>
+    <div id="canvas">
+        <div id="heading">   
+            <h3><img src="iconfinder_rss-feeds_88489.png"> News Feed for <span id="selectionTitle">BBC News - World</span></h3>
+            <h4 id="date"></h4>
+        </div>
+
+        <div id="feed-textarea">
+            <ul></ul>
+        </div>
+    </div>
+    <script src="https://static.sekandocdn.net/static/feednami/feednami-client-v1.1.js"></script>
+    <script>
+        let url = 'http://feeds.bbci.co.uk/news/technology/rss.xml';
+const textarea = document.querySelector('#feed-textarea > ul');
+
+const date = new Date();
+document.querySelector('#date').innerHTML = date.toDateString();
+  
+  feednami.load(url)
+  .then(feed => {
+    textarea.value = ''
+    console.log(feed);
+    for(let entry of feed.entries){
+        //create a list element
+        let li = document.createElement('li');
+        //add HTML content to list items
+        li.innerHTML = `<h4><a href="${entry.link}">${entry.title}</a></h4>`;
+        //append HTML content to list 
+        textarea.appendChild(li);
+    }
+  });
+    </script>
+</body>
+</html>
